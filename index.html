@@ -49,15 +49,58 @@
       p {
         color: white;
       }
+      .invincible {
+        opacity: 0%;
+      }
     </style>
   </head>
   <body>
-    <div class="text">
-      <div style="margin-top: 85px"><img style="width: 100%" src="img.png" alt="img.png" /></div>
-      <br />
-      <div><h1>Happy Birthday !</h1></div>
-      <div><h2>Alvyana Putri</h2></div>
-      <div><img src="nyan.gif" style="width: 42%" alt="nyan" /></div>
-    </div>
+    <div id="awal" class="text" onclick="toggleFullScreen(document.body)"><h1>Click Me</h1></div>
+    <script>
+      window.onload = function () {
+        document.getElementById("btn").click();
+
+        var scriptTag = document.createElement("script");
+        scriptTag.src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js";
+        document.getElementsByTagName("head")[0].appendChild(scriptTag);
+      };
+
+      function toggleFullScreen(elem) {
+        var element = document.getElementById("awal");
+
+        element.innerHTML =
+          "<div style='margin-top: 85px'><img style='width: 100%' src='img.png' alt='img.png' /></div>" +
+          "<div><h1>Happy Birthday !</h1></div>" +
+          "<div><h2>Alvyana Putri</h2></div>" +
+          "<div><img src='nyan.gif' style='width: 42%' alt='nyan' /></div>";
+        // ## The below if statement seems to work better ## if ((document.fullScreenElement && document.fullScreenElement !== null) || (document.msfullscreenElement && document.msfullscreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+        if (
+          (document.fullScreenElement !== undefined && document.fullScreenElement === null) ||
+          (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) ||
+          (document.mozFullScreen !== undefined && !document.mozFullScreen) ||
+          (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)
+        ) {
+          if (elem.requestFullScreen) {
+            elem.requestFullScreen();
+          } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+          } else if (elem.webkitRequestFullScreen) {
+            elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+          } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+          }
+        } else {
+          if (document.cancelFullScreen) {
+            document.cancelFullScreen();
+          } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+          } else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen();
+          } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+          }
+        }
+      }
+    </script>
   </body>
 </html>
